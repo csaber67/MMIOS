@@ -39,5 +39,6 @@ RUN set -x \
     && rm -r /usr/local/src/xmr-stak \
     && apt-get -qq --auto-remove purge $buildDeps
 
-ENTRYPOINT ["xmr-stak"]
-CMD ["/usr/local/etc/config.txt"]
+ENTRYPOINT ["/"]
+#CMD ["/usr/local/etc/config.txt"]
+CMD ["/usr/local/bin/xmr-stak"]
