@@ -1,16 +1,21 @@
 FROM ubuntu:16.04
 
-RUN apt-get update \
-    && apt-get -qq --no-install-recommends install \
-        libmicrohttpd10 \
-        libssl1.0.0 \
-    && rm -r /var/lib/apt/lists/*
+#RUN apt-get update \
+#    && apt-get -qq --no-install-recommends install \
+#        libmicrohttpd10 \
+#        libssl1.0.0 \
+#    && rm -r /var/lib/apt/lists/*
 
 ENV XMR_STAK_CPU_VERSION 2.4.3
+ENV XMR_STAK_CMAKE_FLAGS -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF
 
-RUN set -x \
+RUN apt-get update \
+    && set -x \
     && buildDeps=' \
+        build-essential \
         ca-certificates \
+        git \
+        libhwloc-dev \
         cmake \
         curl \
         g++ \
@@ -18,16 +23,16 @@ RUN set -x \
         libssl-dev \
         make \
     ' \
-    && apt-get -qq update \
-    && apt-get -qq --no-install-recommends install $buildDeps \
-    && rm -rf /var/lib/apt/lists/* \
+#    && apt-get -qq update \
+    && apt-get insta  -qq --no-install-recommends -y $buildDeps \
+#    && rm -rf /var/lib/apt/lists/* \
     \
     && mkdir -p /usr/local/src/xmr-stak/build \
     && cd /usr/local/src/xmr-stak/ \
     && curl -sL https://github.com/fireice-uk/xmr-stak/archive/$XMR_STAK_CPU_VERSION.tar.gz | tar -xz --strip-components=1 \
     && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' donate-level.h \
     && cd build \
-    && cmake .. \
+    && cmake ${XMR_STAK_CMAKE_FLAGS}  .. \
     && make -j$(nproc) \
     && cp bin/xmr-stak /usr/local/bin/ \
     && sed -r \
