@@ -6,7 +6,7 @@ FROM ubuntu:16.04
 #        libssl1.0.0 \
 #    && rm -r /var/lib/apt/lists/*
 
-ENV XMR_STAK_CPU_VERSION 2.4.3
+ENV XMR_STAK_VERSION 2.4.3
 ENV XMR_STAK_CMAKE_FLAGS -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF
 
 RUN apt-get update \
@@ -29,7 +29,8 @@ RUN apt-get update \
     \
     && mkdir -p /usr/local/src/xmr-stak/build \
     && cd /usr/local/src/xmr-stak/ \
-    && curl -sL https://github.com/fireice-uk/xmr-stak/archive/$XMR_STAK_CPU_VERSION.tar.gz | tar -xz --strip-components=1 \
+#    && curl -sL https://github.com/fireice-uk/xmr-stak/archive/$XMR_STAK_VERSION.tar.gz | tar -xz --strip-components=1 \
+    && curl -sL https://github.com/fireice-uk/xmr-stak/archive/2.4.3.tar.gz | tar -xz --strip-components=1 \
 #    && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' donate-level.h \
 #    && cd build \
 #    && cmake ${XMR_STAK_CMAKE_FLAGS}  .. \
