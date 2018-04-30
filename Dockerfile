@@ -24,7 +24,7 @@ RUN apt-get update \
         make \
     ' \
 #    && apt-get -qq update \
-    && apt-get insta  -qq --no-install-recommends -y $buildDeps \
+    && apt-get install  -qq --no-install-recommends -y $buildDeps \
 #    && rm -rf /var/lib/apt/lists/* \
     \
     && mkdir -p /usr/local/src/xmr-stak/build \
