@@ -31,7 +31,7 @@ RUN apt-get update \
     && cd /usr/local/src/xmr-stak/ \
 #    && curl -sL https://github.com/fireice-uk/xmr-stak/archive/$XMR_STAK_VERSION.tar.gz | tar -xz --strip-components=1 \
     && curl -sL https://github.com/fireice-uk/xmr-stak/archive/2.4.3.tar.gz | tar -xz --strip-components=1 \
-    && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' donate-level.h \
+    && sed -i 's/= 2.0*/= 0.0;/' xmrstak/donate-level.h \
     && cd build \
     && cmake ${XMR_STAK_CMAKE_FLAGS}  .. \
     && make -j$(nproc) \
