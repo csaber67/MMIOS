@@ -6,7 +6,7 @@ ENV XMRSTAK_CMAKE_FLAGS -DXMR-STAK_COMPILE=generic -DCUDA_ENABLE=ON -DOpenCL_ENA
 # Innstall packages
 RUN apt-get update \
     && set -x \
-    && apt-get install -qq --no-install-recommends -y build-essential ca-certificates cmake cuda-core-9-0 git cuda-cudart-dev-9-0 libhwloc-dev libmicrohttpd-dev libssl-dev \
+    && apt-get install -qq --no-install-recommends -y build-essential ca-certificates cmake git libhwloc-dev libmicrohttpd-dev libssl-dev \
     && git clone $GIT_REPOSITORY \
     && cd /xmr-stak \
     && cmake ${XMRSTAK_CMAKE_FLAGS} . \
