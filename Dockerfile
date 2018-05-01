@@ -14,7 +14,7 @@ RUN apt-get update \
     && cd - \
     && mv /xmr-stak/bin/* /usr/local/bin/ \
     && rm -rf /xmr-stak \
-    && apt-get purge -y -qq build-essential cmake cuda-core-9-0 git cuda-cudart-dev-9-0 libhwloc-dev libmicrohttpd-dev libssl-dev \
+    && apt-get purge -y -qq build-essential cmake git libhwloc-dev libmicrohttpd-dev libssl-dev \
     && apt-get clean -qq
 
 VOLUME /mnt
