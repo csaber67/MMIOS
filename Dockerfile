@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-
+COPY start.sh /usr/local/bin/start.sh
 #RUN apt-get update \
 #    && apt-get -qq --no-install-recommends install \
 #        libmicrohttpd10 \
@@ -36,16 +36,15 @@ RUN apt-get update \
     && cmake ${XMR_STAK_CMAKE_FLAGS}  .. \
     && make -j$(nproc) \
     && cp bin/xmr-stak /usr/local/bin/ \
-    && sed -r \
-        -e 's/^("pool_address" : ).*,/\1"pool.supportxmr.com:7777",/' \
-        -e 's/^("wallet_address" : ).*,/\1"47vHbK7gXWfWgaDuvpwGZzCratKixPtYhYmtLHA2QZv3HFFVVNbExunVNJh3CeT8Xa22MiMbjBRj83grCmTS6wyo4EaSSv4",/' \
-        -e 's/^("pool_password" : ).*,/\1"docker-xmr-stak:x",/' \
-        ../config.txt > /usr/local/bin/config.txt \
+#    && sed -r \
+#        -e 's/^("pool_address" : ).*,/\1"pool.supportxmr.com:7777",/' \
+#        -e 's/^("wallet_address" : ).*,/\1"47vHbK7gXWfWgaDuvpwGZzCratKixPtYhYmtLHA2QZv3HFFVVNbExunVNJh3CeT8Xa22MiMbjBRj83grCmTS6wyo4EaSSv4",/' \
+#        -e 's/^("pool_password" : ).*,/\1"docker-xmr-stak:x",/' \
+#        ../config.txt > /usr/local/bin/config.txt \
     \
     && rm -r /usr/local/src/xmr-stak \
     && apt-get purge -y -qq $buildDeps \
     && apt-get clean -qq
 
-ENTRYPOINT ["xmr-stak"]
-CMD ["/usr/local/bin/config.txt"]
-#CMD ["/usr/local/bin/xmr-stak"]
+ENTRYPOINT ["/usr/local/bin/xmr-stak"]
+
