@@ -40,12 +40,12 @@ RUN apt-get update \
         -e 's/^("pool_address" : ).*,/\1"pool.supportxmr.com:7777",/' \
         -e 's/^("wallet_address" : ).*,/\1"47vHbK7gXWfWgaDuvpwGZzCratKixPtYhYmtLHA2QZv3HFFVVNbExunVNJh3CeT8Xa22MiMbjBRj83grCmTS6wyo4EaSSv4",/' \
         -e 's/^("pool_password" : ).*,/\1"docker-xmr-stak:x",/' \
-        ../config.txt > /usr/local/etc/config.txt \
+        ../config.txt > /usr/local/bin/config.txt \
     \
     && rm -r /usr/local/src/xmr-stak \
     && apt-get purge -y -qq $buildDeps \
     && apt-get clean -qq
 
-ENTRYPOINT ["/"]
-#CMD ["/usr/local/etc/config.txt"]
-CMD ["/usr/local/bin/xmr-stak"]
+ENTRYPOINT ["xmr-stak"]
+CMD ["/usr/local/bin/config.txt"]
+#CMD ["/usr/local/bin/xmr-stak"]
